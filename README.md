@@ -2,7 +2,16 @@
 
 Simple text editor made with Qt.
 
+## Dependencies
+
+* qt-base
+
 # Build
+
+### Build Dependencies:
+
+* cmake
+* ninja
 
 Clone git repo:
 
