@@ -11,7 +11,8 @@ MainWindow::MainWindow(QWidget *parent)
     f1.setPointSize(12);
     ui->plainTextEdit->setFont(f1);
 
-    setWindowTitle("New File");
+    MainWindow::setWindowTitle("New File");
+
 
 }
 
@@ -76,7 +77,7 @@ void MainWindow::on_SaveButton_clicked()
         savel.setFileMode(QFileDialog::AnyFile);
 
         savel.setAcceptMode(QFileDialog::AcceptSave);
-        savel.setViewMode(QFileDialog::Detail);
+        savel.setViewMode(QFileDialog::List);
 
         QString fulltext(ui->plainTextEdit->toPlainText());
 
@@ -112,7 +113,7 @@ void MainWindow::on_SaveAsButton_clicked()
     saveas.setFileMode(QFileDialog::AnyFile);
 
     saveas.setAcceptMode(QFileDialog::AcceptSave);
-    saveas.setViewMode(QFileDialog::Detail);
+    saveas.setViewMode(QFileDialog::List);
     saveas.setLabelText(QFileDialog::FileType,"fe");
 
 
