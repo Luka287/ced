@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=qteditor
+Comment=text editor
+Exec=qeditor -o %U
+Terminal=false
+Type=Application
+StartupNotify=true
+MimeType=text/plain;application/x-zerosize
+Categories=Qt;Utility;TextEditor;
+Actions=new-window;new-document;
+

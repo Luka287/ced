@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     MainWindow w;
 
-    QApplication::setApplicationVersion("1.0");
+    QApplication::setApplicationVersion("0.3.0");
     QCommandLineParser pars;
 
     pars.addHelpOption();
@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
 
     QCommandLineOption openFile(QStringList() << "o" << "open-file",
     QApplication::translate("main","Open the file"),
-    QApplication::translate("main","Files?"));
+    QApplication::translate("main","Path to file"));
 
 
     pars.addOption(openFile);

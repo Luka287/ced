@@ -164,8 +164,16 @@
     </property>
     <addaction name="actionNew_Window_button"/>
    </widget>
+   <widget class="QMenu" name="menuHistory">
+    <property name="title">
+     <string>History</string>
+    </property>
+    <addaction name="actionClear_history"/>
+    <addaction name="separator"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuView"/>
+   <addaction name="menuHistory"/>
   </widget>
   <action name="actionOpen">
    <property name="checkable">
@@ -201,6 +209,11 @@
   <action name="actionNew_Window_button">
    <property name="text">
     <string>New Window button   ✔</string>
+   </property>
+  </action>
+  <action name="actionClear_history">
+   <property name="text">
+    <string>Clear history</string>
    </property>
   </action>
  </widget>

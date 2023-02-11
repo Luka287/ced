@@ -13,7 +13,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     MainWindow::setWindowTitle("New File");
 
-
 }
 
 MainWindow::~MainWindow()
@@ -56,6 +55,7 @@ void MainWindow::on_OpenButton_clicked()
     }
     MainWindow::on_spinBox_valueChanged(ui->spinBox->value());
     MainWindow::setWindowTitle(filepath);
+
 }
 
 
@@ -250,4 +250,6 @@ void MainWindow::on_actionNew_Window_button_triggered()
     }
 
 }
+
+
 
