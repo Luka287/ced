@@ -246,7 +246,7 @@ void MainWindow::on_actionNew_Window_button_triggered()
         ui->actionNew_Window_button->setText("New Window button");
     }else{
         ui->NewWindow->setHidden(false);
-        ui->actionNew_Window_button->setText("New Window button   ✔");
+        ui->actionNew_Window_button->setText("New Window butttton   ✔");
     }
 
 }

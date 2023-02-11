@@ -1,5 +1,5 @@
 [Desktop Entry]
-Name=qteditor
+Name=ced
 Comment=text editor
 Exec=qeditor -o %U
 Terminal=false
