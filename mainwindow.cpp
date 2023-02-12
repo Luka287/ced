@@ -11,7 +11,11 @@ MainWindow::MainWindow(QWidget *parent)
     f1.setPointSize(12);
     ui->plainTextEdit->setFont(f1);
 
+
     MainWindow::setWindowTitle("New File");
+
+    MainWindow::openapp();
+
 
 }
 
@@ -23,7 +27,7 @@ MainWindow::~MainWindow()
 QString filepath("");
 QString kosa;
 
-//MainWindow::setWindowTitle(filepath);
+
 void MainWindow::on_OpenButton_clicked()
 {
     QFileDialog open(this);
@@ -192,10 +196,13 @@ void MainWindow::on_spinBox_valueChanged(int arg1)
     QFont f1 = ui->plainTextEdit->font();
     f1.setPointSize(arg1);
     ui->plainTextEdit->setFont(f1);
+
+    jsonadd(arg1);
+
 }
 
 
-// For Cl
+// For CL
 void MainWindow::opencl(QString clpath)
 {
         QFile data(clpath);
@@ -248,6 +255,125 @@ void MainWindow::on_actionNew_Window_button_triggered()
         ui->NewWindow->setHidden(false);
         ui->actionNew_Window_button->setText("New Window butttton   ✔");
     }
+
+}
+
+void MainWindow::jsonadd(int siz){
+
+    QString path = QString("%1/.config/ced/config.json").arg(QDir::homePath());
+
+    QFile file(path);
+
+
+    if (QFileInfo::exists(file.fileName())){
+
+        file.open(QIODevice::ReadOnly | QIODevice::Text);
+
+        QJsonDocument jdoc = QJsonDocument::fromJson(file.readAll());
+
+        file.close();
+
+
+        QJsonObject robj = jdoc.object();
+        QJsonValueRef ref = robj.find("Settings").value();
+
+        QJsonObject mf = ref.toObject();
+
+        QJsonObject val = ref.toObject();
+        val.insert("FontSize", siz);
+
+
+        ref=val;
+
+        jdoc.setObject(robj);
+
+        file.open(QFile::WriteOnly | QFile::Text | QFile::Truncate);
+        file.write(jdoc.toJson());
+        file.close();
+    }else{
+
+        file.close();
+
+        QFile file1("/etc/ced/config.json");
+
+        file1.open(QIODevice::ReadOnly | QIODevice::Text);
+
+        QJsonDocument jdoc1 = QJsonDocument::fromJson(file1.readAll());
+
+        file1.close();
+
+
+        QJsonObject robj1 = jdoc1.object();
+        QJsonValueRef ref1 = robj1.find("Settings").value();
+
+        QJsonObject mf1 = ref1.toObject();
+
+        QJsonObject val1 = ref1.toObject();
+        val1.insert("FontSize", siz);
+
+
+        ref1=val1;
+
+        jdoc1.setObject(robj1);
+
+        file1.open(QFile::WriteOnly | QFile::Text | QFile::Truncate);
+        file1.write(jdoc1.toJson());
+        file1.close();
+    }
+
+
+
+}
+
+void MainWindow::openapp()
+{
+
+    QString path = QString("%1/.config/ced/config.json").arg(QDir::homePath());
+
+    QFile file(path);
+
+    if (QFileInfo::exists(file.fileName())){
+
+        file.open(QIODevice::ReadOnly | QIODevice::Text);
+
+        QJsonDocument jdoc = QJsonDocument::fromJson(file.readAll());
+
+        file.close();
+
+        QJsonObject robj = jdoc.object();
+        QJsonValueRef ref = robj.find("Settings").value();
+
+        QJsonObject mf = ref.toObject();
+
+        QFont f1 = ui->plainTextEdit->font();
+        f1.setPointSize(mf["FontSize"].toDouble());
+        ui->plainTextEdit->setFont(f1);
+        ui->spinBox->setValue(mf["FontSize"].toDouble());
+
+
+    }else{
+
+        file.close();
+
+        QFile file1("/etc/ced/config.json");
+
+        file1.open(QIODevice::ReadOnly | QIODevice::Text);
+
+        QJsonDocument jdoc1 = QJsonDocument::fromJson(file1.readAll());
+
+        file1.close();
+
+        QJsonObject robj1 = jdoc1.object();
+        QJsonValueRef ref1 = robj1.find("Settings").value();
+
+        QJsonObject mf1 = ref1.toObject();
+
+        QFont f1 = ui->plainTextEdit->font();
+        f1.setPointSize(mf1["FontSize"].toDouble());
+        ui->plainTextEdit->setFont(f1);
+        ui->spinBox->setValue(mf1["FontSize"].toDouble());
+    }
+
 
 }
 

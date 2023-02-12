@@ -13,6 +13,11 @@
 #include <QStringLiteral>
 #include <QCommandLineOption>
 #include <QCommandLineParser>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonArray>
+#include <QJsonValue>
+#include <QDir>
 
 
 QT_BEGIN_NAMESPACE
@@ -58,6 +63,10 @@ private slots:
     void on_actionNew_Window_triggered();
 
     void on_actionNew_Window_button_triggered();
+
+    void jsonadd(int siz);
+
+    void openapp();
 
 private:
    Ui::MainWindow *ui;
