@@ -18,10 +18,9 @@ int main(int argc, char *argv[])
     pars.addHelpOption();
     pars.addVersionOption();
 
-
     QCommandLineOption openFile(QStringList() << "o" << "open-file",
-    QApplication::translate("main","Open the file"),
-    QApplication::translate("main","Path to file"));
+                                QApplication::translate("main","Open the file"),
+                                QApplication::translate("main","Path to file"));
 
 
     pars.addOption(openFile);

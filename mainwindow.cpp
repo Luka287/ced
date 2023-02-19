@@ -1,35 +1,50 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
 
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
 
-    QFont f1 = ui->plainTextEdit->font();
-    f1.setPointSize(12);
-    ui->plainTextEdit->setFont(f1);
-
-
     MainWindow::setWindowTitle("New File");
 
     MainWindow::openapp();
 
 
+    on_pushButton_clicked();
+
+    ui->tabWidget->setTabVisible(1,false);
+
+    ui->tabWidget->widget(0)->setFocus();
+
+    ui->tabWidget->tabBar()->setVisible(false);
+
 }
 
 MainWindow::~MainWindow()
 {
+
     delete ui;
 }
 
-QString filepath("");
-QString kosa;
+
+QString filepath("-");
+QString filepath1("-");
+
+int xx = 0;
+int noba;
+int fontsize;
+
+QList<QString> pathfile;
+QList<QPlainTextEdit*> QPTElist;
 
 
 void MainWindow::on_OpenButton_clicked()
 {
+
+
     QFileDialog open(this);
 
     open.setFileMode(QFileDialog::ExistingFile);
@@ -48,32 +63,104 @@ void MainWindow::on_OpenButton_clicked()
 
         if(data.open(QFile::ReadOnly) | QFile::Truncate)
         {
+
             QTextStream soy(&data);
-            ui->plainTextEdit->clear();
-            ui->plainTextEdit->insertPlainText(soy.readAll());
+
+            QPTElist[QPTElist.length() - noba - 1]->clear();
+            QPTElist[QPTElist.length() - noba - 1]->insertPlainText(soy.readAll());
+
             filepath = openfile[0];
-            ui->working_file->setText(filepath);
-            MainWindow::setWindowTitle(filepath);
+            filepath1 = openfile[0];
+
+
+            pathfile[noba] = filepath1;
+
+
+            MainWindow::setWindowTitle(filepath1);
+
         }
 
     }
+
     MainWindow::on_spinBox_valueChanged(ui->spinBox->value());
     MainWindow::setWindowTitle(filepath);
 
+    on_tabWidget_currentChanged(noba);
+
 }
 
+void MainWindow::openTab()
+{
+
+    QFileDialog open(this);
+
+    open.setFileMode(QFileDialog::ExistingFile);
+
+    open.setNameFilter("Any files (*)");
+
+    open.setViewMode(QFileDialog::List);
+
+    QStringList openfile;
+
+    QString nvsa = QString("File %1").arg(xx + 1);
+    xx = xx + 1;
+
+
+    if(open.exec())
+    {
+        openfile = open.selectedFiles();
+
+        QFile data(openfile[0]);
+
+        if(data.open(QFile::ReadOnly) | QFile::Truncate)
+        {
+            QPlainTextEdit* go = new QPlainTextEdit;
+
+            QTextStream soy(&data);
+
+            QPTElist.append(go);
+
+            go->clear();
+            go->insertPlainText(soy.readAll());
+
+            ui->tabWidget->insertTab(0,go,nvsa);
+
+            filepath = openfile[0];
+            filepath1 = openfile[0];
+
+            if (pathfile.length() == 0){
+
+                pathfile.append(filepath1);
+
+            }else {
+
+                pathfile.insert(0,filepath1);
+
+            }
+
+            MainWindow::setWindowTitle(filepath1);
+
+        }
+
+    }
+
+    MainWindow::on_spinBox_valueChanged(ui->spinBox->value());
+    MainWindow::setWindowTitle(filepath);
+    ui->tabWidget->tabBar()->setVisible(true);
+
+}
 
 void MainWindow::on_SaveButton_clicked()
 {
-    if (filepath != ""){
-        QFile savefile(filepath);
 
-        QString kol(ui->plainTextEdit->toPlainText());
+    if (filepath1 != "-"){
+        QFile savefile(filepath1);
 
         if(savefile.open(QFile::WriteOnly) | QFile::Truncate)
         {
+            int bdfs = (QPTElist.length() - 1) - noba;
             QTextStream boy(&savefile);
-            boy << kol;
+            boy << QPTElist[bdfs]->toPlainText();
         }
     }else
     {
@@ -83,7 +170,10 @@ void MainWindow::on_SaveButton_clicked()
         savel.setAcceptMode(QFileDialog::AcceptSave);
         savel.setViewMode(QFileDialog::List);
 
-        QString fulltext(ui->plainTextEdit->toPlainText());
+
+        int bdfs = (QPTElist.length() - 1) - noba;
+
+        QString fulltext(QPTElist[bdfs]->toPlainText());
 
         QStringList openfile;
 
@@ -97,15 +187,18 @@ void MainWindow::on_SaveButton_clicked()
             if(data.open(QFile::ReadWrite) | QFile::Truncate)
             {
                 filepath = openfile[0];
-                ui->working_file->setText(filepath);
+                filepath1 = openfile[0];
+                ui->working_file->setText(filepath1);
+
+                pathfile[noba] = filepath1;
 
                 QTextStream roy(&data);
                 roy << fulltext;
             }
-
         }
-
     }
+
+
     MainWindow::on_spinBox_valueChanged(ui->spinBox->value());
     MainWindow::setWindowTitle(filepath);
 }
@@ -129,9 +222,8 @@ void MainWindow::on_SaveAsButton_clicked()
 
         QFile savefileas(datsh[0]);
 
-        ui->working_file->setText(datsh[0]);
-
-        QString fulltext(ui->plainTextEdit->toPlainText());
+        int bdfs = (QPTElist.length() - 1) - noba;
+        QString fulltext(QPTElist[bdfs]->toPlainText());
 
         if(savefileas.open(QFile::ReadWrite) | QFile::Truncate)
         {
@@ -147,16 +239,24 @@ void MainWindow::on_SaveAsButton_clicked()
 
 void MainWindow::on_NewButton_clicked()
 {
-   ui->plainTextEdit->clear();
-   filepath = "";
-   ui->working_file->setText("");
+    filepath = "-";
+    filepath1 = "-";
 
-   MainWindow::on_spinBox_valueChanged(ui->spinBox->value());
-   MainWindow::setWindowTitle("New File");
+    QPlainTextEdit* go = new QPlainTextEdit;
+
+    int bdfs = (QPTElist.length() - 1) - noba;
+    go->clear();
+    QPTElist[bdfs]->clear();
+
+    pathfile[noba] = "";
+
+    ui->working_file->setText("-");
+
+
+    MainWindow::on_spinBox_valueChanged(ui->spinBox->value());
+    MainWindow::setWindowTitle("New File");
+
 }
-
-
-
 
 void MainWindow::on_actionOpen_triggered()
 {
@@ -184,18 +284,26 @@ void MainWindow::on_actionNew_File_triggered()
 
 void MainWindow::on_fontComboBox_currentFontChanged(const QFont &f)
 {
-    ui->plainTextEdit->setFont(f);
-    MainWindow::on_spinBox_valueChanged(ui->spinBox->value());
 
+    for(int i = 0; i < QPTElist.length(); i++){
+        QPTElist[i]->setFont(f);
+    }
+    MainWindow::on_spinBox_valueChanged(ui->spinBox->value());
 
 }
 
 
 void MainWindow::on_spinBox_valueChanged(int arg1)
 {
-    QFont f1 = ui->plainTextEdit->font();
-    f1.setPointSize(arg1);
-    ui->plainTextEdit->setFont(f1);
+
+    fontsize = arg1;
+
+    for(int i = 0; i < QPTElist.length(); i++){
+        QFont f1 = QPTElist[i]->font();
+        f1.setPointSize(arg1);
+        QPTElist[i]->setFont(f1);
+
+    }
 
     jsonadd(arg1);
 
@@ -205,17 +313,23 @@ void MainWindow::on_spinBox_valueChanged(int arg1)
 // For CL
 void MainWindow::opencl(QString clpath)
 {
-        QFile data(clpath);
+    QFile data(clpath);
 
-        if(data.open(QFile::ReadOnly) | QFile::Truncate)
-        {
-            QTextStream soy(&data);
-            ui->plainTextEdit->clear();
-            ui->plainTextEdit->insertPlainText(soy.readAll());
-            filepath = clpath;
-            ui->working_file->setText(filepath);
-            MainWindow::setWindowTitle(filepath);
-        }
+    if(data.open(QFile::ReadOnly) | QFile::Truncate)
+    {
+        QTextStream soy(&data);
+
+        filepath = clpath;
+        ui->working_file->setText(filepath);
+
+
+        QPTElist[QPTElist.length() - noba - 1]->clear();
+        QPTElist[QPTElist.length() - noba - 1]->insertPlainText(soy.readAll());
+
+        pathfile[noba] = filepath;
+
+        MainWindow::setWindowTitle(filepath);
+    }
 
     MainWindow::on_spinBox_valueChanged(ui->spinBox->value());
     MainWindow::setWindowTitle(filepath);
@@ -235,8 +349,8 @@ void MainWindow::getopencl(QString ron){
 
 void MainWindow::on_NewWindow_clicked()
 {
-        MainWindow *b = new MainWindow;
-        b->show();
+    MainWindow *b = new MainWindow;
+    b->show();
 }
 
 
@@ -321,8 +435,6 @@ void MainWindow::jsonadd(int siz){
         file1.close();
     }
 
-
-
 }
 
 void MainWindow::openapp()
@@ -345,9 +457,6 @@ void MainWindow::openapp()
 
         QJsonObject mf = ref.toObject();
 
-        QFont f1 = ui->plainTextEdit->font();
-        f1.setPointSize(mf["FontSize"].toDouble());
-        ui->plainTextEdit->setFont(f1);
         ui->spinBox->setValue(mf["FontSize"].toDouble());
 
 
@@ -368,14 +477,71 @@ void MainWindow::openapp()
 
         QJsonObject mf1 = ref1.toObject();
 
-        QFont f1 = ui->plainTextEdit->font();
-        f1.setPointSize(mf1["FontSize"].toDouble());
-        ui->plainTextEdit->setFont(f1);
         ui->spinBox->setValue(mf1["FontSize"].toDouble());
     }
 
 
 }
 
+void MainWindow::on_tabWidget_currentChanged(int index)
+{
+    noba = index;
 
+    filepath1 = pathfile[index];
+    ui->working_file->setText(filepath1);
+
+    qDebug() << pathfile;
+    qDebug() << pathfile.back();
+
+}
+
+
+
+void MainWindow::on_pushButton_clicked()
+{
+
+    QString nvsa = QString("file%1").arg(xx + 1);
+    xx = xx + 1;
+
+    QPlainTextEdit* go = new QPlainTextEdit;
+
+
+    ui->tabWidget->insertTab(0,go,nvsa);
+
+    ui->working_file->setText(filepath1);
+
+    QPTElist.append(go);
+
+    filepath1 = "-";
+
+    if (pathfile.length() == 0){
+        pathfile.append(filepath1);
+    }else {
+        pathfile.insert(0,filepath1);
+    }
+
+
+
+    ui->working_file->setText(filepath);
+    MainWindow::setWindowTitle(filepath);
+
+
+    MainWindow::on_spinBox_valueChanged(ui->spinBox->value());
+    MainWindow::setWindowTitle("New File");
+
+    ui->tabWidget->tabBar()->setVisible(true);
+
+}
+
+void MainWindow::on_tabWidget_tabCloseRequested(int index)
+{
+    if (pathfile.length() > 1){
+        ui->tabWidget->removeTab(index);
+
+        QPTElist.remove(QPTElist.length() - index - 1);
+
+        pathfile.remove(index);
+    }
+
+}
 
