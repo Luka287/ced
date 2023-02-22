@@ -21,6 +21,6 @@ Clone git repo:
 
 Build an app:
 
-> cmake -DCMAKE_BUILD_TYPE=Debug -G Ninja "-DCMAKE_PREFIX_PATH=/path/to/Qt;/path/to/llvm" /path/to/qtcreator_sources
+> cmake .
 
 > cmake --build .

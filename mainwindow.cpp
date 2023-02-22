@@ -70,10 +70,6 @@ void MainWindow::on_OpenButton_clicked()
 
             pathfile[noba] = filepath;
 
-
-            MainWindow::setWindowTitle(filepath);
-
-
         }
 
     }
@@ -205,7 +201,7 @@ void MainWindow::on_NewButton_clicked()
 
 
     MainWindow::on_spinBox_valueChanged(ui->spinBox->value());
-    MainWindow::setWindowTitle("-");
+    MainWindow::setWindowTitle("New File");
 
     QString nvsa = QString("Untitled %1").arg(xx + 1);
     xx = xx + 1;
@@ -283,7 +279,6 @@ void MainWindow::opencl(QString clpath)
 
         pathfile[noba] = filepath;
 
-        MainWindow::setWindowTitle(filepath);
     }
 
     MainWindow::on_spinBox_valueChanged(ui->spinBox->value());
@@ -415,7 +410,12 @@ void MainWindow::on_tabWidget_currentChanged(int index)
     filepath = pathfile[index];
     ui->working_file->setText(filepath);
 
-    MainWindow::setWindowTitle(pathfile[index]);
+    if(pathfile[index] != "-"){
+        MainWindow::setWindowTitle(pathfile[index]);
+    }else{
+        MainWindow::setWindowTitle("New File");
+    }
+
 
 }
 
@@ -511,8 +511,6 @@ void MainWindow::on_actionOpen_In_New_Tab_triggered()
                 pathfile.insert(0,filepath);
 
             }
-
-            MainWindow::setWindowTitle(filepath);
 
         }
 
