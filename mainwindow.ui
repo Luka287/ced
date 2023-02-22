@@ -40,9 +40,9 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton">
+       <widget class="QPushButton" name="addTab">
         <property name="text">
-         <string>add</string>
+         <string>Add Tab</string>
         </property>
        </widget>
       </item>

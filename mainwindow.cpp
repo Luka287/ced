@@ -12,7 +12,7 @@ MainWindow::MainWindow(QWidget *parent)
     MainWindow::openapp();
 
 
-    on_pushButton_clicked();
+    on_addTab_clicked();
 
     ui->tabWidget->setTabVisible(1,false);
 
@@ -20,7 +20,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->tabWidget->tabBar()->setVisible(false);
 
-    MainWindow::setWindowTitle("New Window");
 }
 
 MainWindow::~MainWindow()
@@ -29,7 +28,7 @@ MainWindow::~MainWindow()
 }
 
 
-QString filepath1("-");
+QString filepath("-");
 
 int xx = 0;
 int noba;
@@ -66,13 +65,13 @@ void MainWindow::on_OpenButton_clicked()
             QPTElist[QPTElist.length() - noba - 1]->clear();
             QPTElist[QPTElist.length() - noba - 1]->insertPlainText(soy.readAll());
 
-            filepath1 = openfile[0];
+            filepath = openfile[0];
 
 
-            pathfile[noba] = filepath1;
+            pathfile[noba] = filepath;
 
 
-            MainWindow::setWindowTitle(filepath1);
+            MainWindow::setWindowTitle(filepath);
 
 
         }
@@ -80,16 +79,16 @@ void MainWindow::on_OpenButton_clicked()
     }
 
     MainWindow::on_spinBox_valueChanged(ui->spinBox->value());
-    MainWindow::setWindowTitle(filepath1);
+    MainWindow::setWindowTitle(filepath);
 
     on_tabWidget_currentChanged(noba);
 
 
     QString tabiz;
     QString nono(QChar('/'));
-    for(int i = filepath1.length() - 1; i >= 0; i--){
-        if(filepath1[i] != nono){
-            tabiz.append(filepath1[i]);
+    for(int i = filepath.length() - 1; i >= 0; i--){
+        if(filepath[i] != nono){
+            tabiz.append(filepath[i]);
         }else {
             break;
         }
@@ -107,8 +106,8 @@ void MainWindow::on_OpenButton_clicked()
 void MainWindow::on_SaveButton_clicked()
 {
 
-    if (filepath1 != "-"){
-        QFile savefile(filepath1);
+    if (filepath != "-"){
+        QFile savefile(filepath);
 
         if(savefile.open(QFile::WriteOnly) | QFile::Truncate)
         {
@@ -140,10 +139,10 @@ void MainWindow::on_SaveButton_clicked()
 
             if(data.open(QFile::ReadWrite) | QFile::Truncate)
             {
-                filepath1 = openfile[0];
-                ui->working_file->setText(filepath1);
+                filepath = openfile[0];
+                ui->working_file->setText(filepath);
 
-                pathfile[noba] = filepath1;
+                pathfile[noba] = filepath;
 
                 QTextStream roy(&data);
                 roy << fulltext;
@@ -153,7 +152,7 @@ void MainWindow::on_SaveButton_clicked()
 
 
     MainWindow::on_spinBox_valueChanged(ui->spinBox->value());
-    MainWindow::setWindowTitle(filepath1);
+    MainWindow::setWindowTitle(filepath);
 }
 
 
@@ -187,12 +186,12 @@ void MainWindow::on_SaveAsButton_clicked()
     }
 
     MainWindow::on_spinBox_valueChanged(ui->spinBox->value());
-    MainWindow::setWindowTitle(filepath1);
+    MainWindow::setWindowTitle(filepath);
 }
 
 void MainWindow::on_NewButton_clicked()
 {
-    filepath1 = "-";
+    filepath = "-";
 
     QPlainTextEdit* go = new QPlainTextEdit;
 
@@ -275,20 +274,20 @@ void MainWindow::opencl(QString clpath)
     {
         QTextStream soy(&data);
 
-        filepath1 = clpath;
-        ui->working_file->setText(filepath1);
+        filepath = clpath;
+        ui->working_file->setText(filepath);
 
 
         QPTElist[QPTElist.length() - noba - 1]->clear();
         QPTElist[QPTElist.length() - noba - 1]->insertPlainText(soy.readAll());
 
-        pathfile[noba] = filepath1;
+        pathfile[noba] = filepath;
 
-        MainWindow::setWindowTitle(filepath1);
+        MainWindow::setWindowTitle(filepath);
     }
 
     MainWindow::on_spinBox_valueChanged(ui->spinBox->value());
-    MainWindow::setWindowTitle(filepath1);
+    MainWindow::setWindowTitle(filepath);
 
 }
 
@@ -413,8 +412,8 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 {
     noba = index;
 
-    filepath1 = pathfile[index];
-    ui->working_file->setText(filepath1);
+    filepath = pathfile[index];
+    ui->working_file->setText(filepath);
 
     MainWindow::setWindowTitle(pathfile[index]);
 
@@ -422,7 +421,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 
 
 
-void MainWindow::on_pushButton_clicked()
+void MainWindow::on_addTab_clicked()
 {
 
     QString nvsa = QString("Untitled %1").arg(xx + 1);
@@ -435,12 +434,12 @@ void MainWindow::on_pushButton_clicked()
 
     QPTElist.append(go);
 
-    filepath1 = "-";
+    filepath = "-";
 
     if (pathfile.length() == 0){
-        pathfile.append(filepath1);
+        pathfile.append(filepath);
     }else {
-        pathfile.insert(0,filepath1);
+        pathfile.insert(0,filepath);
     }
 
 
@@ -501,35 +500,35 @@ void MainWindow::on_actionOpen_In_New_Tab_triggered()
 
             ui->tabWidget->insertTab(0,go,nvsa);
 
-            filepath1 = openfile[0];
+            filepath = openfile[0];
 
             if (pathfile.length() == 0){
 
-                pathfile.append(filepath1);
+                pathfile.append(filepath);
 
             }else {
 
-                pathfile.insert(0,filepath1);
+                pathfile.insert(0,filepath);
 
             }
 
-            MainWindow::setWindowTitle(filepath1);
+            MainWindow::setWindowTitle(filepath);
 
         }
 
     }
 
     MainWindow::on_spinBox_valueChanged(ui->spinBox->value());
-    MainWindow::setWindowTitle(filepath1);
+    MainWindow::setWindowTitle(filepath);
     ui->tabWidget->tabBar()->setVisible(true);
 
 
 
     QString tabiz;
     QString nono(QChar('/'));
-    for(int i = filepath1.length() - 1; i >= 0; i--){
-        if(filepath1[i] != nono){
-            tabiz.append(filepath1[i]);
+    for(int i = filepath.length() - 1; i >= 0; i--){
+        if(filepath[i] != nono){
+            tabiz.append(filepath[i]);
         }else {
             break;
         }

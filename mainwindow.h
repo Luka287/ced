@@ -28,7 +28,7 @@ namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
 class MainWindow : public QMainWindow
-{   QPlainTextEdit* gco = new QPlainTextEdit;
+{
     Q_OBJECT
 
 public:
@@ -74,7 +74,7 @@ private slots:
 
     void on_tabWidget_currentChanged(int index);
 
-    void on_pushButton_clicked();
+    void on_addTab_clicked();
 
     void on_tabWidget_tabCloseRequested(int index);
 
