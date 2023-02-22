@@ -9,7 +9,6 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     MainWindow::setWindowTitle("New File");
-
     MainWindow::openapp();
 
 
@@ -456,9 +455,9 @@ void MainWindow::on_tabWidget_tabCloseRequested(int index)
     if (pathfile.length() > 1){
         ui->tabWidget->removeTab(index);
 
-        QPTElist.remove(QPTElist.length() - index - 1);
+        QPTElist.removeAt(QPTElist.length() - index - 1);
 
-        pathfile.remove(index);
+        pathfile.removeAt(index);
 
         on_tabWidget_currentChanged(noba);
     }
