@@ -21,6 +21,7 @@
 #include <QWidget>
 #include <QPlainTextEdit>
 #include <QTabWidget>
+#include <QChar>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -75,14 +76,11 @@ private slots:
 
     void on_pushButton_clicked();
 
-    void openTab();
-
-
     void on_tabWidget_tabCloseRequested(int index);
 
+    void on_actionOpen_In_New_Tab_triggered();
+
 private:
- //  QPlainTextEdit* gco = new QPlainTextEdit;
-   QList<QPlainTextEdit*> liz;
    Ui::MainWindow *ui;
 };
 

@@ -216,6 +216,7 @@
     </property>
     <addaction name="separator"/>
     <addaction name="actionOpen"/>
+    <addaction name="actionOpen_In_New_Tab"/>
     <addaction name="actionSave"/>
     <addaction name="actionSave_As"/>
     <addaction name="actionNew_File"/>
@@ -228,16 +229,8 @@
     </property>
     <addaction name="actionNew_Window_button"/>
    </widget>
-   <widget class="QMenu" name="menuHistory">
-    <property name="title">
-     <string>History</string>
-    </property>
-    <addaction name="actionClear_history"/>
-    <addaction name="separator"/>
-   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuView"/>
-   <addaction name="menuHistory"/>
   </widget>
   <action name="actionOpen">
    <property name="checkable">
@@ -275,9 +268,9 @@
     <string>New Window button   ✔</string>
    </property>
   </action>
-  <action name="actionClear_history">
+  <action name="actionOpen_In_New_Tab">
    <property name="text">
-    <string>Clear history</string>
+    <string>Open In New Tab</string>
    </property>
   </action>
  </widget>
