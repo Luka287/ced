@@ -12,7 +12,9 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     MainWindow w;
 
-    QApplication::setApplicationVersion("0.7.2");
+    a.setWindowIcon(QIcon("/usr/share/pixmaps/ced.png"));
+
+    QApplication::setApplicationVersion("0.7.3");
     QCommandLineParser pars;
 
     pars.addHelpOption();

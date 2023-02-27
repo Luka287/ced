@@ -22,6 +22,7 @@
 #include <QPlainTextEdit>
 #include <QTabWidget>
 #include <QChar>
+#include <QIcon>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }

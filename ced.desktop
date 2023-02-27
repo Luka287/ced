@@ -1,3 +1,4 @@
+#!/usr/bin/env xdg-open
 [Desktop Entry]
 Name=ced
 Comment=text editor
@@ -8,4 +9,4 @@ StartupNotify=true
 MimeType=text/plain;application/x-zerosize
 Categories=Qt;Utility;TextEditor;
 Actions=new-window;new-document;
-
+Icon=/usr/share/pixmaps/ced.png
