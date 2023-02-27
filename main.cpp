@@ -6,6 +6,7 @@
 #include <QCommandLineOption>
 #include <QDebug>
 #include <QObject>
+#include <QIcon>
 
 int main(int argc, char *argv[])
 {
