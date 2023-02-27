@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
 
     a.setWindowIcon(QIcon("/usr/share/pixmaps/ced.png"));
 
-    QApplication::setApplicationVersion("0.7.3");
+    QApplication::setApplicationVersion("0.7.4");
     QCommandLineParser pars;
 
     pars.addHelpOption();
