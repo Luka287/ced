@@ -22,6 +22,9 @@
 #include <QPlainTextEdit>
 #include <QTabWidget>
 #include <QChar>
+#include <QProcess>
+#include <QMessageBox>
+
 
 
 QT_BEGIN_NAMESPACE

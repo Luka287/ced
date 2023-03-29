@@ -272,7 +272,7 @@ void MainWindow::opencl(QString clpath)
 
         filepath = clpath;
         ui->working_file->setText(filepath);
-
+        qDebug("shmest1");
 
         QPTElist[QPTElist.length() - noba - 1]->clear();
         QPTElist[QPTElist.length() - noba - 1]->insertPlainText(soy.readAll());
@@ -287,13 +287,7 @@ void MainWindow::opencl(QString clpath)
 }
 
 void MainWindow::getopencl(QString ron){
-
-    if(ron != ""){
-
-        opencl(ron);
-
-    }
-
+    opencl(ron);
 }
 
 
@@ -540,4 +534,7 @@ void MainWindow::on_actionOpen_In_New_Tab_triggered()
 
     ui->tabWidget->setTabText(noba,tabname);
 }
+
+
+
 
